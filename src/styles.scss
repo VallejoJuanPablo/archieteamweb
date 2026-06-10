@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* Retro 8-bit base */
+body {
+  margin: 0;
+  background: #020617;
+  color: #e2e8f0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Scanline overlay */
+.scanlines::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.08) 2px,
+    rgba(0, 255, 0, 0.08) 4px
+  );
+}
+
+/* Blink animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 10px currentColor; }
+  50% { text-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.blink { animation: blink 1s step-end infinite; }
+.glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+.float { animation: float 3s ease-in-out infinite; }
