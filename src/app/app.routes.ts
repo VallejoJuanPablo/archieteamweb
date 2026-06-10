@@ -6,5 +6,6 @@ export const routes: Routes = [
   { path: 'skills', loadComponent: () => import('./pages/skills/skills').then(m => m.Skills) },
   { path: 'rules', loadComponent: () => import('./pages/rules/rules').then(m => m.Rules) },
   { path: 'projects', loadComponent: () => import('./pages/projects/projects').then(m => m.Projects) },
+  { path: 'methodologies', loadComponent: () => import('./pages/methodologies/methodologies').then(m => m.Methodologies) },
   { path: '**', redirectTo: '' },
 ];

@@ -24,6 +24,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
                class="nav-link font-mono text-xs text-slate-500 hover:text-green-400 px-3 py-1.5 transition-colors no-underline uppercase tracking-wider">Rules</a>
             <a routerLink="/projects" routerLinkActive="nav-active"
                class="nav-link font-mono text-xs text-slate-500 hover:text-green-400 px-3 py-1.5 transition-colors no-underline uppercase tracking-wider">Projects</a>
+            <a routerLink="/methodologies" routerLinkActive="nav-active"
+               class="nav-link font-mono text-xs text-slate-500 hover:text-green-400 px-3 py-1.5 transition-colors no-underline uppercase tracking-wider">Clans</a>
           </div>
           <div class="font-mono text-[10px] text-green-700 hidden md:flex items-center gap-3">
             <span>♥♥♥</span>
