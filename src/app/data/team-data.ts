@@ -14,12 +14,21 @@ export interface Skill {
   description: string;
 }
 
+export interface ProjectActivity {
+  date: string;
+  description: string;
+  type: 'feat' | 'fix' | 'spec' | 'docs' | 'refactor' | 'chore';
+}
+
 export interface Project {
   id: string;
   name: string;
   stack: string;
   status: string;
   lastSession: string;
+  description: string;
+  specs: number;
+  activities: ProjectActivity[];
 }
 
 export interface Rule {
@@ -170,14 +179,87 @@ export const SKILLS: Skill[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  { id: 'P01', name: 'GymPulse', stack: 'Angular 18 + Node.js + MySQL + MongoDB', status: 'En desarrollo', lastSession: '2026-05-27' },
-  { id: 'P02', name: 'LavaderoOs', stack: '—', status: 'Sin analizar', lastSession: '' },
-  { id: 'P03', name: 'IL017 (DBM)', stack: 'Angular 17 + Material + Bootstrap', status: 'Sprint 6 campaigns', lastSession: '2026-06-10' },
-  { id: 'P04', name: 'AgroEnvios', stack: 'Node.js 22 + TS + Express + MongoDB', status: 'Registrado', lastSession: '2026-05-27' },
-  { id: 'P05', name: 'Braillin', stack: 'Node.js + Angular', status: 'Iniciando', lastSession: '2026-06-04' },
-  { id: 'P06', name: 'microTelco', stack: 'NestJS + Angular 19 + MongoDB', status: '7 fases + 3 specs', lastSession: '2026-06-08' },
-  { id: 'P07', name: 'FrontKit', stack: 'Angular 20 + Tailwind CSS 4', status: '256 comp + 27 tpl', lastSession: '2026-06-10' },
-  { id: 'P08', name: 'AgroEnvioPanel', stack: 'Angular 19 + Tailwind CSS 4', status: '7 fases completas', lastSession: '2026-06-10' },
+  {
+    id: 'P01', name: 'GymPulse', stack: 'Angular 18 + Node.js + MySQL + MongoDB', status: 'En desarrollo', lastSession: '2026-05-27',
+    description: 'App de gestión de gimnasio con rutinas, ejercicios y seguimiento de progreso de usuarios.',
+    specs: 0,
+    activities: [
+      { date: '2026-05-27', description: 'Reconocimiento de proyecto y análisis de stack', type: 'docs' },
+      { date: '2026-05-27', description: 'Registro como P01 en equipo Archie', type: 'chore' },
+    ]
+  },
+  {
+    id: 'P02', name: 'LavaderoOs', stack: '—', status: 'Sin analizar', lastSession: '',
+    description: 'Proyecto pendiente de análisis. Sin stack definido ni reconocimiento realizado.',
+    specs: 0,
+    activities: []
+  },
+  {
+    id: 'P03', name: 'IL017 (DBM)', stack: 'Angular 17 + Material + Bootstrap', status: 'Sprint 6 campaigns', lastSession: '2026-06-10',
+    description: 'Digital Buyers Manager — Plataforma de gestión de pedidos de vehículos renting/leasing. Conecta brokers con suppliers. 112 componentes, 36 servicios.',
+    specs: 27,
+    activities: [
+      { date: '2026-06-10', description: 'SPEC-026: Unificar tabla notas (checkbox + headers)', type: 'spec' },
+      { date: '2026-06-10', description: 'SPEC-027: Botón ver campañas en card mobile stocks', type: 'spec' },
+      { date: '2026-06-10', description: 'Card vehículo paso 4 compacto (icon + textos + unidades)', type: 'fix' },
+      { date: '2026-06-10', description: 'Marcas/modelos paso 1-2: cards apiladas mobile', type: 'fix' },
+      { date: '2026-06-10', description: 'Merge feat/stock-card-campaign-button → dev', type: 'chore' },
+      { date: '2026-06-09', description: 'SPEC-025: Indicadores scroll en document-buttons mobile', type: 'spec' },
+      { date: '2026-06-09', description: 'SPEC-024: Form agregar cliente/garante responsive', type: 'spec' },
+      { date: '2026-06-08', description: 'Sprint 4: Clientes tabla card-layout + SharedFilter migration', type: 'feat' },
+    ]
+  },
+  {
+    id: 'P04', name: 'AgroEnvios', stack: 'Node.js 22 + TS + Express + MongoDB', status: 'Registrado', lastSession: '2026-05-27',
+    description: 'ECO AgroEnvíos — Microservicio de envíos para plataforma agrícola. Admin API con 32 endpoints y 81 tests.',
+    specs: 0,
+    activities: [
+      { date: '2026-05-27', description: 'Admin API completada: 32 endpoints + 81 tests', type: 'feat' },
+      { date: '2026-05-27', description: 'Pendiente: Fase 4 fixes DB, CI/CD', type: 'docs' },
+    ]
+  },
+  {
+    id: 'P05', name: 'Braillin', stack: 'Node.js + Angular', status: 'Iniciando', lastSession: '2026-06-04',
+    description: 'Aplicación de enseñanza de Braille con backend Node.js y frontend Angular.',
+    specs: 0,
+    activities: [
+      { date: '2026-06-04', description: 'Setup inicial del proyecto con Node.js + Angular', type: 'chore' },
+      { date: '2026-06-04', description: 'Configuración de MySQL y MongoDB', type: 'chore' },
+    ]
+  },
+  {
+    id: 'P06', name: 'microTelco', stack: 'NestJS + Angular 19 + MongoDB + Socket.IO', status: '7 fases + 3 specs', lastSession: '2026-06-08',
+    description: 'Microsistema de telecomunicaciones con NestJS backend, Angular 19 frontend, MongoDB y comunicación real-time con Socket.IO.',
+    specs: 3,
+    activities: [
+      { date: '2026-06-08', description: 'Spec 3 completada: módulo de comunicaciones', type: 'spec' },
+      { date: '2026-06-07', description: 'Fase 7 completada: testing E2E', type: 'feat' },
+      { date: '2026-06-06', description: 'Implementación Socket.IO real-time', type: 'feat' },
+    ]
+  },
+  {
+    id: 'P07', name: 'FrontKit', stack: 'Angular 20 + Tailwind CSS 4', status: '256 comp + 27 tpl', lastSession: '2026-06-10',
+    description: 'Catálogo de 256+ componentes frontend y 27 templates multi-página. Botones, formularios, secciones, efectos, animaciones, navegación.',
+    specs: 0,
+    activities: [
+      { date: '2026-06-10', description: 'Template retro 8-bit (tpl-retro-game) + 7 componentes retro', type: 'feat' },
+      { date: '2026-06-10', description: '+62 componentes en todas las categorías', type: 'feat' },
+      { date: '2026-06-10', description: '3 templates nuevos: fitness, travel, education', type: 'feat' },
+      { date: '2026-06-10', description: 'Efectos: 3d-tilt, frosted-tabs, aurora-bg, hover-reveal', type: 'feat' },
+      { date: '2026-06-10', description: 'Animaciones: flip-card, marquee-scroll, pulse-ring', type: 'feat' },
+      { date: '2026-06-10', description: 'Nav: footers, headers, sidebar, notification/user dropdown', type: 'feat' },
+      { date: '2026-06-09', description: 'Templates: scroll-story, lago-hermoso + base 194 componentes', type: 'feat' },
+    ]
+  },
+  {
+    id: 'P08', name: 'AgroEnvioPanel', stack: 'Angular 19 + Tailwind CSS 4', status: '7 fases completas', lastSession: '2026-06-10',
+    description: 'Panel de administración para AgroEnvíos. Frontend Angular 19 con Tailwind CSS, 7 fases de desarrollo completadas.',
+    specs: 0,
+    activities: [
+      { date: '2026-06-10', description: 'Fase 7 completada: panel completo', type: 'feat' },
+      { date: '2026-06-09', description: 'Dashboard con métricas y gráficos', type: 'feat' },
+    ]
+  },
 ];
 
 export const RULES: Rule[] = [
