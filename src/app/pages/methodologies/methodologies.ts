@@ -160,10 +160,10 @@ const METHODOLOGIES: Methodology[] = [
           <p class="text-fuchsia-700 text-[10px] tracking-[0.4em] uppercase mb-2">[ CHOOSE YOUR PATH ]</p>
           <h1 class="text-3xl sm:text-4xl font-bold text-fuchsia-400 tracking-tight leading-none"
               style="text-shadow: 0 0 24px rgba(232,121,249,0.6);">
-            CLANS
+            METODOLOGÍAS
           </h1>
           <p class="text-slate-500 text-xs tracking-[0.3em] uppercase mt-3">
-            METHODOLOGIES OF THE ARCHIE ORDER
+            PATHS OF THE ARCHIE ORDER
           </p>
           <div class="mt-4 border-b border-fuchsia-900/50 max-w-xs mx-auto"></div>
         </div>
@@ -225,7 +225,7 @@ const METHODOLOGIES: Methodology[] = [
                 <span class="text-3xl">{{ selected()!.icon }}</span>
                 <div>
                   <h2 class="text-xl font-bold tracking-wider" [style]="'color: ' + selected()!.color">
-                    {{ selected()!.name }} CLAN
+                    {{ selected()!.name }} PATH
                   </h2>
                   <p class="text-xs text-slate-500">{{ selected()!.subtitle }}</p>
                 </div>
@@ -330,14 +330,14 @@ const METHODOLOGIES: Methodology[] = [
         } @else {
           <div class="border-2 border-dashed border-slate-800 p-12 text-center">
             <div class="text-4xl mb-4 opacity-20">⚔️</div>
-            <p class="text-slate-600 text-sm uppercase tracking-wider">SELECT A CLAN</p>
+            <p class="text-slate-600 text-sm uppercase tracking-wider">SELECT A METHODOLOGY</p>
             <p class="text-slate-700 text-[10px] uppercase tracking-widest mt-2">CLICK ON A METHODOLOGY TO VIEW DETAILS</p>
           </div>
         }
 
         <!-- Footer -->
         <div class="text-center mt-10 text-slate-700 text-[10px] tracking-widest uppercase">
-          3 CLANS AVAILABLE — SDD DEFAULT — DDD ON INIT — OPENSPEC EXPERIMENTAL
+          3 PATHS AVAILABLE — SDD DEFAULT — DDD ON INIT — OPENSPEC EXPERIMENTAL
         </div>
 
       </div>
