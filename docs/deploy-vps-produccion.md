@@ -358,7 +358,26 @@ curl -I https://archie.bowin.com.ar
 
 ## 6. Actualizaciones futuras
 
-### Deploy manual (3 comandos)
+### Metodo recomendado: build local (no gasta RAM del servidor)
+
+Desde tu maquina local (Git Bash):
+
+```bash
+cd C:/xampp/htdocs/Personal/ArchieTeam
+./deploy-local.sh
+```
+
+El script hace todo automaticamente:
+1. Buildea la imagen Docker para linux/amd64 en tu maquina
+2. Exporta la imagen a un `.tar.gz`
+3. La sube al servidor via SCP
+4. Carga la imagen en Docker del servidor y levanta el container
+
+> **Requisito:** Configurar `SERVER_HOST` con la IP del VPS en `deploy-local.sh` antes del primer uso.
+
+### Metodo alternativo: build en el servidor
+
+Si por alguna razon necesitas buildear en el servidor:
 
 ```bash
 ssh -p 2222 deploy@IP_DEL_VPS
@@ -368,29 +387,12 @@ git pull origin master
 docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-### Deploy con script
+### Archivos de compose
 
-```bash
-ssh -p 2222 deploy@IP_DEL_VPS
-cd /opt/docker/archieteam/repo
-./deploy.sh
-```
-
-### Que pasa internamente
-
-1. `git pull` trae los cambios
-2. Docker re-ejecuta el build multi-stage (Node instala deps → Angular compila → Nginx sirve)
-3. El container viejo se reemplaza por el nuevo (zero downtime gracias a Traefik)
-4. Las imagenes viejas quedan como cache (limpiar periodicamente con `docker image prune -a`)
-
-### Tiempo estimado de rebuild
-
-| Paso | Primera vez | Con cache |
-|------|------------|-----------|
-| npm install | ~30s | ~5s (si no cambio package.json) |
-| ng build | ~20-40s | ~20-40s (siempre rebuilds) |
-| Copy to Nginx | <1s | <1s |
-| **Total** | **~60-90s** | **~30-50s** |
+| Archivo | Build | Cuando usarlo |
+|---------|-------|---------------|
+| `docker-compose.server.yml` | `image: archieteam-web:latest` | Deploy con imagen pre-buildeada (recomendado) |
+| `docker-compose.prod.yml` | `build: .` | Build directo en el servidor (fallback) |
 
 ---
 
@@ -497,17 +499,17 @@ docker version --format '{{.Server.APIVersion}}'
  3. Crear red "proxy" + levantar Traefik
  4. Configurar firewall (UFW)
 
- DEPLOY DE ARCHIETEAM
+ DEPLOY DE ARCHIETEAM (primera vez)
  ─────────────────────────────────
  5. Crear carpeta /opt/docker/archieteam
  6. Clonar repositorio
  7. Apuntar DNS: archie.bowin.com.ar → IP del VPS
- 8. docker compose -f docker-compose.prod.yml up -d --build
+ 8. Desde local: ./deploy-local.sh
  9. Verificar checklist
 
  UPDATES FUTUROS
  ─────────────────────────────────
- 10. git pull + docker compose -f docker-compose.prod.yml up -d --build
+ 10. Desde local: ./deploy-local.sh
 ```
 
 ### Archivos de deploy en el repo
@@ -516,5 +518,7 @@ docker version --format '{{.Server.APIVersion}}'
 |---------|---------|
 | `Dockerfile` | Build multi-stage: Node 22 compila Angular → Nginx 1.27 sirve |
 | `nginx.conf` | SPA routing + gzip + cache agresivo + headers de seguridad |
-| `docker-compose.prod.yml` | 1 servicio (Nginx) conectado a Traefik via red `proxy` |
-| `deploy.sh` | Script: git pull → build → verificar |
+| `docker-compose.prod.yml` | Compose con `build:` (build en servidor, fallback) |
+| `docker-compose.server.yml` | Compose con `image:` (imagen pre-buildeada, recomendado) |
+| `deploy-local.sh` | Script local: build → export → scp → load → restart |
+| `deploy.sh` | Script servidor: git pull → build → verificar |
