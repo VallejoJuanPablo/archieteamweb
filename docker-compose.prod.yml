@@ -1,0 +1,19 @@
+services:
+  archieteam-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: archieteam-web
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.archieteam.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.archieteam.entrypoints=websecure"
+      - "traefik.http.routers.archieteam.tls.certresolver=letsencrypt"
+      - "traefik.http.services.archieteam.loadbalancer.server.port=80"
+
+networks:
+  proxy:
+    external: true
