@@ -296,45 +296,11 @@ Host github-archieteam
 git clone git@github-archieteam:TU_USUARIO/archieteam.git repo
 ```
 
-### 4.4 Copiar los archivos de deploy
-
-Los archivos necesarios ya estan en el repo:
-
-```
-repo/
-├── Dockerfile              ← Build multi-stage (Node → Nginx)
-├── nginx.conf              ← Config de Nginx (SPA routing + cache + gzip)
-├── docker-compose.prod.yml ← Compose de produccion (1 container + Traefik)
-└── deploy.sh               ← Script de deploy automatizado
-```
-
-Crear un symlink o copiar el docker-compose a la carpeta del proyecto:
+### 4.4 Levantar
 
 ```bash
-cd /opt/docker/archieteam
-cp repo/docker-compose.prod.yml docker-compose.yml
-```
-
-Editar el `docker-compose.yml` para apuntar el build context al repo:
-
-```bash
-nano /opt/docker/archieteam/docker-compose.yml
-```
-
-Cambiar la seccion `build`:
-```yaml
-services:
-  archieteam-web:
-    build:
-      context: ./repo
-      dockerfile: Dockerfile
-```
-
-### 4.6 Levantar
-
-```bash
-cd /opt/docker/archieteam
-docker compose up -d --build
+cd /opt/docker/archieteam/repo
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 Esto va a:
@@ -348,16 +314,16 @@ Esto va a:
 
 ```bash
 # Estado del container
-docker compose ps
+docker compose -f docker-compose.prod.yml ps
 
 # Logs
-docker compose logs -f archieteam-web
+docker compose -f docker-compose.prod.yml logs -f archieteam-web
 
 # Probar desde el servidor
 curl -s http://localhost | head -5
 ```
 
-### 4.7 Verificar desde el navegador
+### 4.6 Verificar desde el navegador
 
 Abrir `https://archie.bowin.com.ar` — deberia cargar la pantalla "PRESS START" de ArchieTeam.
 
@@ -399,16 +365,15 @@ ssh -p 2222 deploy@IP_DEL_VPS
 
 cd /opt/docker/archieteam/repo
 git pull origin master
-cd ..
-docker compose up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ### Deploy con script
 
 ```bash
 ssh -p 2222 deploy@IP_DEL_VPS
-cd /opt/docker/archieteam
-./repo/deploy.sh
+cd /opt/docker/archieteam/repo
+./deploy.sh
 ```
 
 ### Que pasa internamente
@@ -439,9 +404,9 @@ docker ps | grep traefik
 docker logs traefik --tail 30
 
 # 2. Verificar que el container esta corriendo
-cd /opt/docker/archieteam
-docker compose ps
-docker compose logs archieteam-web --tail 30
+cd /opt/docker/archieteam/repo
+docker compose -f docker-compose.prod.yml ps
+docker compose -f docker-compose.prod.yml logs archieteam-web --tail 30
 
 # 3. Verificar DNS
 dig archie.bowin.com.ar +short
@@ -456,8 +421,9 @@ dig archie.bowin.com.ar +short
 docker network inspect proxy | grep archieteam
 
 # Si no esta, recrear:
-docker compose down
-docker compose up -d
+cd /opt/docker/archieteam/repo
+docker compose -f docker-compose.prod.yml down
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 ### SSL no se genera
@@ -476,11 +442,11 @@ docker logs traefik 2>&1 | grep -i "acme\|certificate\|error"
 
 ```bash
 # Verificar que nginx.conf se copio bien
-docker compose exec archieteam-web cat /etc/nginx/conf.d/default.conf | grep try_files
+docker compose -f docker-compose.prod.yml exec archieteam-web cat /etc/nginx/conf.d/default.conf | grep try_files
 # Debe contener: try_files $uri $uri/ /index.html;
 
 # Si no esta, rebuild:
-docker compose up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ### Build falla por falta de RAM
@@ -493,7 +459,7 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 
 # Reintentar build
-docker compose up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 
 # Alternativa: buildear en tu maquina local
 # En tu maquina:
@@ -504,8 +470,8 @@ scp -P 2222 archieteam-web.tar.gz deploy@IP_DEL_VPS:/tmp/
 
 # En el servidor:
 docker load < /tmp/archieteam-web.tar.gz
-# Editar docker-compose.yml: cambiar "build:" por "image: archieteam-web:latest"
-docker compose up -d
+# Editar docker-compose.prod.yml: cambiar "build:" por "image: archieteam-web:latest"
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 ### Traefik no arranca (Docker API version)
@@ -535,14 +501,13 @@ docker version --format '{{.Server.APIVersion}}'
  ─────────────────────────────────
  5. Crear carpeta /opt/docker/archieteam
  6. Clonar repositorio
- 7. Copiar docker-compose.prod.yml como docker-compose.yml
- 8. Apuntar DNS: archie.bowin.com.ar → IP del VPS
- 10. docker compose up -d --build
- 11. Verificar checklist
+ 7. Apuntar DNS: archie.bowin.com.ar → IP del VPS
+ 8. docker compose -f docker-compose.prod.yml up -d --build
+ 9. Verificar checklist
 
  UPDATES FUTUROS
  ─────────────────────────────────
- 12. git pull + docker compose up -d --build
+ 10. git pull + docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ### Archivos de deploy en el repo
