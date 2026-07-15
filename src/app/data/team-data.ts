@@ -130,18 +130,21 @@ export const AGENTS: Agent[] = [
 
 export const SKILLS: Skill[] = [
   // equipo
-  { name: 'angular', category: 'equipo', uses: 42, description: 'Componentes, servicios, routing Angular' },
-  { name: 'nodejs', category: 'equipo', uses: 1, description: 'Backend Node.js, APIs REST' },
+  { name: 'angular', category: 'equipo', uses: 87, description: 'Componentes, servicios, routing Angular' },
+  { name: 'nodejs', category: 'equipo', uses: 17, description: 'Backend Node.js, APIs REST' },
   { name: 'mysql', category: 'equipo', uses: 1, description: 'Base de datos relacional MySQL' },
-  { name: 'mongodb', category: 'equipo', uses: 1, description: 'Base de datos NoSQL MongoDB' },
+  { name: 'mongodb', category: 'equipo', uses: 10, description: 'Base de datos NoSQL MongoDB' },
   { name: 'componentes-angular', category: 'equipo', uses: 110, description: 'Biblioteca de componentes reutilizables Angular' },
-  { name: 'diseño-ui', category: 'equipo', uses: 34, description: 'Diseño de interfaces y sistemas visuales' },
-  { name: 'sdd', category: 'equipo', uses: 4, description: 'Spec-Driven Development, 7 fases de desarrollo' },
-  { name: 'git', category: 'equipo', uses: 18, description: 'Control de versiones, branching, commits' },
-  { name: 'buenas-practicas', category: 'equipo', uses: 5, description: 'Estándares de código y arquitectura' },
-  { name: 'microservicios', category: 'equipo', uses: 0, description: 'Arquitectura de microservicios' },
+  { name: 'diseño-ui', category: 'equipo', uses: 35, description: 'Diseño de interfaces y sistemas visuales' },
+  { name: 'sdd', category: 'equipo', uses: 18, description: 'Spec-Driven Development, 7 fases de desarrollo' },
+  { name: 'git', category: 'equipo', uses: 34, description: 'Control de versiones, branching, commits' },
+  { name: 'buenas-practicas', category: 'equipo', uses: 19, description: 'Estándares de código y arquitectura' },
+  { name: 'microservicios', category: 'equipo', uses: 3, description: 'Arquitectura de microservicios' },
   { name: 'patrones-diseño', category: 'equipo', uses: 0, description: 'Design patterns y arquitectura de software' },
-  { name: 'n8n', category: 'equipo', uses: 0, description: 'Automatización de workflows con n8n' },
+  { name: 'n8n', category: 'equipo', uses: 4, description: 'Automatización de workflows con n8n' },
+  { name: 'ddd', category: 'equipo', uses: 0, description: 'Domain-Driven Design, bounded contexts, aggregates' },
+  { name: 'openspec', category: 'equipo', uses: 0, description: 'Metodología alternativa a SDD (proposal → delta specs)' },
+  { name: 'graphify', category: 'equipo', uses: 2, description: 'Knowledge graph de código, análisis de codebase' },
   { name: 'generacion-imagen', category: 'equipo', uses: 0, description: 'Generación de imágenes con IA' },
   { name: 'optimizacion-tokens', category: 'equipo', uses: 0, description: 'Optimización de uso de tokens en LLMs' },
   // claude-code
@@ -152,9 +155,9 @@ export const SKILLS: Skill[] = [
   { name: 'high-end-visual-design', category: 'claude-code', uses: 33, description: 'Diseño como agencia premium, fuentes, sombras, cards' },
   { name: 'design-taste-frontend', category: 'claude-code', uses: 33, description: 'Senior UI/UX Engineer, reglas basadas en métricas' },
   { name: 'animate', category: 'claude-code', uses: 15, description: 'Animaciones y micro-interacciones con propósito' },
-  { name: 'layout', category: 'claude-code', uses: 14, description: 'Layout, spacing y ritmo visual' },
+  { name: 'layout', category: 'claude-code', uses: 17, description: 'Layout, spacing y ritmo visual' },
   { name: 'full-output-enforcement', category: 'claude-code', uses: 10, description: 'Fuerza generación completa de código sin truncar' },
-  { name: 'adapt', category: 'claude-code', uses: 8, description: 'Adapta diseños para múltiples dispositivos y pantallas' },
+  { name: 'adapt', category: 'claude-code', uses: 10, description: 'Adapta diseños para múltiples dispositivos y pantallas' },
   { name: 'design-system', category: 'claude-code', uses: 6, description: 'Arquitectura de tokens, specs de componentes' },
   { name: 'overdrive', category: 'claude-code', uses: 1, description: 'Implementaciones técnicas ambiciosas, shaders, spring physics' },
   { name: 'shape', category: 'claude-code', uses: 0, description: 'Planificación de UX y UI antes de escribir código' },
@@ -180,7 +183,7 @@ export const SKILLS: Skill[] = [
 
 export const PROJECTS: Project[] = [
   {
-    id: 'P01', name: 'GymPulse', stack: 'Angular 18 + Node.js + MySQL + MongoDB', status: 'En desarrollo', lastSession: '2026-05-27',
+    id: 'P01', name: 'GymPulse', stack: 'Angular 18 + Node.js/Express + MySQL (Prisma) + MongoDB', status: 'En desarrollo', lastSession: '2026-05-27',
     description: 'App de gestión de gimnasio con rutinas, ejercicios y seguimiento de progreso de usuarios.',
     specs: 0,
     activities: [
@@ -195,36 +198,38 @@ export const PROJECTS: Project[] = [
     activities: []
   },
   {
-    id: 'P03', name: 'IL017 (DBM)', stack: 'Angular 17 + Material + Bootstrap', status: 'Sprint 6 campaigns', lastSession: '2026-06-10',
-    description: 'Digital Buyers Manager — Plataforma de gestión de pedidos de vehículos renting/leasing. Conecta brokers con suppliers. 112 componentes, 36 servicios.',
-    specs: 27,
+    id: 'P03', name: 'IL017 (DBM)', stack: 'Angular 17 + Material 17 + Bootstrap 5 + SSR + i18n + Chart.js', status: 'SPEC-052/053 + fixes mergeados', lastSession: '2026-07-14',
+    description: 'Digital Buyers Manager — Plataforma de gestión de pedidos de vehículos renting/leasing. Conecta brokers con suppliers.',
+    specs: 53,
     activities: [
-      { date: '2026-06-10', description: 'SPEC-026: Unificar tabla notas (checkbox + headers)', type: 'spec' },
-      { date: '2026-06-10', description: 'SPEC-027: Botón ver campañas en card mobile stocks', type: 'spec' },
-      { date: '2026-06-10', description: 'Card vehículo paso 4 compacto (icon + textos + unidades)', type: 'fix' },
-      { date: '2026-06-10', description: 'Marcas/modelos paso 1-2: cards apiladas mobile', type: 'fix' },
-      { date: '2026-06-10', description: 'Merge feat/stock-card-campaign-button → dev', type: 'chore' },
-      { date: '2026-06-09', description: 'SPEC-025: Indicadores scroll en document-buttons mobile', type: 'spec' },
-      { date: '2026-06-09', description: 'SPEC-024: Form agregar cliente/garante responsive', type: 'spec' },
+      { date: '2026-07-14', description: 'SPEC-052/053 + SharedFilter fixes + i18n mergeados a dev', type: 'feat' },
+      { date: '2026-07-03', description: 'Sprint de specs: SPEC-028 a SPEC-051', type: 'spec' },
+      { date: '2026-06-18', description: 'Layout responsive + adapt fixes mobile', type: 'fix' },
+      { date: '2026-06-10', description: 'SPEC-026/027: Tabla notas + campañas en stocks', type: 'spec' },
+      { date: '2026-06-09', description: 'SPEC-024/025: Forms responsive + scroll indicators', type: 'spec' },
       { date: '2026-06-08', description: 'Sprint 4: Clientes tabla card-layout + SharedFilter migration', type: 'feat' },
     ]
   },
   {
-    id: 'P04', name: 'AgroEnvios', stack: 'Node.js 22 + TS + Express + MongoDB', status: 'Registrado', lastSession: '2026-05-27',
-    description: 'ECO AgroEnvíos — Microservicio de envíos para plataforma agrícola. Admin API con 32 endpoints y 81 tests.',
+    id: 'P04', name: 'AgroEnvios', stack: 'Node.js 22 + TS + Express + MongoDB + AWS + Redis + Socket.IO', status: 'Notificaciones + dashboard', lastSession: '2026-06-25',
+    description: 'ECO AgroEnvíos — Microservicio de envíos para plataforma agrícola. Admin API con 32 endpoints y 81 tests. Notificaciones, seguimientos, dashboard stats.',
     specs: 0,
     activities: [
+      { date: '2026-06-25', description: 'Dashboard stats + validación server-side + campo tipo usuario', type: 'feat' },
+      { date: '2026-06-25', description: 'Notificaciones + seguimientos de envíos', type: 'feat' },
+      { date: '2026-06-22', description: 'Tests unitarios backend con Jest', type: 'feat' },
       { date: '2026-05-27', description: 'Admin API completada: 32 endpoints + 81 tests', type: 'feat' },
-      { date: '2026-05-27', description: 'Pendiente: Fase 4 fixes DB, CI/CD', type: 'docs' },
     ]
   },
   {
-    id: 'P05', name: 'Braillin', stack: 'Node.js + Angular', status: 'Iniciando', lastSession: '2026-06-04',
-    description: 'Aplicación de enseñanza de Braille con backend Node.js y frontend Angular.',
+    id: 'P05', name: 'Braillin', stack: 'Node.js + Express + Angular + MySQL (Prisma)', status: 'Hero editable mergeado a main', lastSession: '2026-07-13',
+    description: 'Sitio web de Braillin con backend Node.js, frontend Angular. Hero editable desde admin, galerías, contacto, i18n.',
     specs: 0,
     activities: [
-      { date: '2026-06-04', description: 'Setup inicial del proyecto con Node.js + Angular', type: 'chore' },
-      { date: '2026-06-04', description: 'Configuración de MySQL y MongoDB', type: 'chore' },
+      { date: '2026-07-13', description: 'Hero editable mergeado a main', type: 'feat' },
+      { date: '2026-07-11', description: 'Deploy VPS con Docker + Traefik documentado', type: 'docs' },
+      { date: '2026-07-11', description: 'Fixes backend: uploads, nginx config, seeds', type: 'fix' },
+      { date: '2026-06-04', description: 'Setup inicial del proyecto', type: 'chore' },
     ]
   },
   {
@@ -238,26 +243,51 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
-    id: 'P07', name: 'FrontKit', stack: 'Angular 20 + Tailwind CSS 4', status: '256 comp + 27 tpl', lastSession: '2026-06-10',
-    description: 'Catálogo de 256+ componentes frontend y 27 templates multi-página. Botones, formularios, secciones, efectos, animaciones, navegación.',
+    id: 'P07', name: 'FrontKit', stack: 'Angular 20 + Tailwind CSS 4', status: '271 comp + 28 templates', lastSession: '2026-06-26',
+    description: 'Catálogo de 271+ componentes frontend y 28 templates multi-página. Botones, formularios, secciones, efectos, animaciones, navegación.',
     specs: 0,
     activities: [
+      { date: '2026-06-26', description: 'Template tpl-corrientes + total 28 templates', type: 'feat' },
       { date: '2026-06-10', description: 'Template retro 8-bit (tpl-retro-game) + 7 componentes retro', type: 'feat' },
-      { date: '2026-06-10', description: '+62 componentes en todas las categorías', type: 'feat' },
-      { date: '2026-06-10', description: '3 templates nuevos: fitness, travel, education', type: 'feat' },
-      { date: '2026-06-10', description: 'Efectos: 3d-tilt, frosted-tabs, aurora-bg, hover-reveal', type: 'feat' },
-      { date: '2026-06-10', description: 'Animaciones: flip-card, marquee-scroll, pulse-ring', type: 'feat' },
-      { date: '2026-06-10', description: 'Nav: footers, headers, sidebar, notification/user dropdown', type: 'feat' },
+      { date: '2026-06-10', description: '+62 componentes: efectos, animaciones, nav, formularios', type: 'feat' },
       { date: '2026-06-09', description: 'Templates: scroll-story, lago-hermoso + base 194 componentes', type: 'feat' },
     ]
   },
   {
-    id: 'P08', name: 'AgroEnvioPanel', stack: 'Angular 19 + Tailwind CSS 4', status: '7 fases completas', lastSession: '2026-06-10',
-    description: 'Panel de administración para AgroEnvíos. Frontend Angular 19 con Tailwind CSS, 7 fases de desarrollo completadas.',
+    id: 'P08', name: 'AgroEnvioPanel', stack: 'Angular 19 + Tailwind CSS 4 + Socket.IO', status: '2 specs + roles/permisos', lastSession: '2026-06-26',
+    description: 'Panel de administración para AgroEnvíos. Roles/permisos, notas fiscales, notificaciones, seguimientos, apiKeyHub dinámica. Repo en GitLab.',
+    specs: 2,
+    activities: [
+      { date: '2026-06-26', description: 'ApiKeyHub dinámica + repo GitLab configurado', type: 'feat' },
+      { date: '2026-06-25', description: 'Notificaciones + seguimientos real-time', type: 'feat' },
+      { date: '2026-06-25', description: 'Roles/permisos + notas fiscales', type: 'feat' },
+      { date: '2026-06-10', description: 'Fase 7 completada: panel base completo', type: 'feat' },
+    ]
+  },
+  {
+    id: 'P09', name: 'ArchieTeam', stack: 'Angular 19 + Tailwind CSS 4', status: 'MVP + deploy VPS listo', lastSession: '2026-07-15',
+    description: 'Sitio web de presentación del equipo Archie con estética retro 8-bit. Muestra agentes, skills, reglas y proyectos activos.',
     specs: 0,
     activities: [
-      { date: '2026-06-10', description: 'Fase 7 completada: panel completo', type: 'feat' },
-      { date: '2026-06-09', description: 'Dashboard con métricas y gráficos', type: 'feat' },
+      { date: '2026-07-15', description: 'Manual deploy VPS + Dockerfile + docker-compose', type: 'docs' },
+      { date: '2026-07-15', description: 'Deploy local build (no cargar servidor)', type: 'feat' },
+      { date: '2026-06-10', description: 'MVP completo: 6 páginas funcionales', type: 'feat' },
+    ]
+  },
+  {
+    id: 'P10', name: 'Dentos', stack: 'Angular 18 + Material 18 + Bootstrap 5 / Laravel 10 + PHP 8.1', status: 'Registrado', lastSession: '2026-06-18',
+    description: 'Sistema de gestión odontológica. Frontend Angular con Material + Bootstrap, backend Laravel con Sanctum auth.',
+    specs: 0,
+    activities: [
+      { date: '2026-06-18', description: 'Registrado como P10 en equipo Archie', type: 'chore' },
+    ]
+  },
+  {
+    id: 'P11', name: 'BarberiaElJefe', stack: 'Node.js/Express + Angular 19 + MongoDB + Tailwind CSS 4', status: 'Inicializado', lastSession: '2026-07-11',
+    description: 'Sistema de gestión para barbería. Turnos, clientes, servicios, facturación.',
+    specs: 0,
+    activities: [
+      { date: '2026-07-11', description: 'Proyecto inicializado con stack definido', type: 'chore' },
     ]
   },
 ];
@@ -273,7 +303,7 @@ export const RULES: Rule[] = [
       'Usar las plantillas definidas en .claude/plantillas/',
       'Documentar todo en la carpeta docs/ del proyecto',
       'Registrar las tareas completadas en registro/',
-      'Usar git de forma consistente: commits descriptivos, branches claras',
+      'Guardar progreso continuamente (no esperar al final de la sesión)',
     ],
   },
   {
@@ -281,12 +311,11 @@ export const RULES: Rule[] = [
     category: 'git',
     items: [
       'NUNCA commitear en main/master/dev directamente',
-      'Commits atómicos: un propósito por commit',
-      'Tipos de commit: feat/, fix/, refactor/, docs/, test/',
-      'Tag co-authored-by de Claude Code en cada commit',
-      'Merge a dev sin confirmación del usuario',
-      'Merge a main SOLO con confirmación explícita del usuario',
-      'Limpiar branches después del merge',
+      'Siempre crear rama (feature/, fix/, style/, docs/) antes de trabajar',
+      'Commits en ramas de trabajo: automáticos, sin pedir confirmación',
+      'Merge a main/master: SOLO con confirmación explícita del usuario',
+      'NUNCA mergear a dev sin que el usuario lo pida',
+      'Actualizar registros (context, skills, agentes) en cada commit',
     ],
   },
   {
@@ -307,8 +336,20 @@ export const RULES: Rule[] = [
       'Flujo de 7 fases: SPEC → PLAN → TASK → REVIEW → CODE → QC → TEST',
       'Requiere aprobación del usuario entre cada fase',
       'Se activa EXCLUSIVAMENTE con el comando /spec',
+      'Modo TURBO: completar todas las fases de corrido sin pausar',
       'Genera informe-spec.md al cerrar cada spec',
       'El índice docs/specs/INDEX.md se actualiza al cerrar cada spec',
+    ],
+  },
+  {
+    title: 'MULTI-PROYECTO',
+    category: 'multi-project',
+    items: [
+      'Archie trabaja desde Equipo/ como base fija',
+      'Al abrir un proyecto: leer su docs/archie-context.md',
+      'Al terminar: actualizar archie-context.md con estado actual',
+      'registro/proyectos.md es la tabla central de todos los proyectos',
+      'Los archivos generados van en la carpeta del proyecto, nunca en Equipo/',
     ],
   },
 ];
