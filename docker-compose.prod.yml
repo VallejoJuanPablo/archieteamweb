@@ -9,7 +9,7 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.archieteam.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.archieteam.rule=Host(`archie.bowin.com.ar`)"
       - "traefik.http.routers.archieteam.entrypoints=websecure"
       - "traefik.http.routers.archieteam.tls.certresolver=letsencrypt"
       - "traefik.http.services.archieteam.loadbalancer.server.port=80"

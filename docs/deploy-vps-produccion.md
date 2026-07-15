@@ -46,7 +46,7 @@ Internet
     v
 [ Traefik :80/:443 ]  ─── SSL automatico (Let's Encrypt)
     |
-    |── archieteam.DOMINIO ──> [ archieteam-web ]  Nginx (Angular SPA)
+    |── archie.bowin.com.ar ──> [ archieteam-web ]  Nginx (Angular SPA)
     |
     |── (otros proyectos) ──> [ ... ]
     |
@@ -247,19 +247,19 @@ sudo ufw enable
 
 ## 4. Deploy de ArchieTeam
 
-### 4.1 Definir el dominio
+### 4.1 Configurar DNS
 
-**Antes de todo**, decidir el dominio exacto (ej: `archieteam.tudominio.com`, `equipo.tudominio.com`, etc.).
+Dominio: **`archie.bowin.com.ar`**
 
-Configurar el registro DNS:
+En el panel DNS de `bowin.com.ar`, agregar:
 
 | Tipo | Nombre | Valor | TTL |
 |------|--------|-------|-----|
-| A | (segun subdominio) | `IP_DEL_VPS` | 300 |
+| A | `archie` | `IP_DEL_VPS` | 300 |
 
 Verificar propagacion:
 ```bash
-dig archieteam.TUDOMINIO.com +short
+dig archie.bowin.com.ar +short
 # Debe mostrar la IP del VPS
 ```
 
@@ -296,22 +296,7 @@ Host github-archieteam
 git clone git@github-archieteam:TU_USUARIO/archieteam.git repo
 ```
 
-### 4.4 Crear el archivo .env
-
-```bash
-nano /opt/docker/archieteam/.env
-```
-
-```env
-# Dominio (usado en las labels de Traefik)
-DOMAIN=archieteam.TUDOMINIO.com
-```
-
-```bash
-chmod 600 /opt/docker/archieteam/.env
-```
-
-### 4.5 Copiar los archivos de deploy
+### 4.4 Copiar los archivos de deploy
 
 Los archivos necesarios ya estan en el repo:
 
@@ -374,7 +359,7 @@ curl -s http://localhost | head -5
 
 ### 4.7 Verificar desde el navegador
 
-Abrir `https://archieteam.TUDOMINIO.com` — deberia cargar la pantalla "PRESS START" de ArchieTeam.
+Abrir `https://archie.bowin.com.ar` — deberia cargar la pantalla "PRESS START" de ArchieTeam.
 
 ---
 
@@ -383,14 +368,14 @@ Abrir `https://archieteam.TUDOMINIO.com` — deberia cargar la pantalla "PRESS S
 ### Checklist
 
 ```
-[ ] https://DOMINIO carga la home (PRESS START)
+[ ] https://archie.bowin.com.ar carga la home (PRESS START)
 [ ] Navegar a /agents funciona
 [ ] Navegar a /skills funciona
 [ ] Navegar a /rules funciona
 [ ] Navegar a /projects funciona
 [ ] Navegar a /methodologies funciona
 [ ] Refresh en /agents NO da 404 (SPA routing)
-[ ] http://DOMINIO redirige a https://
+[ ] http://archie.bowin.com.ar redirige a https://
 [ ] El certificado SSL es valido (candado verde)
 [ ] Los estilos retro 8-bit se ven correctamente (scanlines, neon glow)
 [ ] La fuente monospace carga
@@ -399,7 +384,7 @@ Abrir `https://archieteam.TUDOMINIO.com` — deberia cargar la pantalla "PRESS S
 ### Verificar SSL
 
 ```bash
-curl -I https://archieteam.TUDOMINIO.com
+curl -I https://archie.bowin.com.ar
 # Debe responder 200 con headers de seguridad
 ```
 
@@ -459,7 +444,7 @@ docker compose ps
 docker compose logs archieteam-web --tail 30
 
 # 3. Verificar DNS
-dig archieteam.TUDOMINIO.com +short
+dig archie.bowin.com.ar +short
 # Debe mostrar la IP del VPS
 ```
 
@@ -550,9 +535,8 @@ docker version --format '{{.Server.APIVersion}}'
  ─────────────────────────────────
  5. Crear carpeta /opt/docker/archieteam
  6. Clonar repositorio
- 7. Crear .env con DOMAIN
- 8. Copiar docker-compose.prod.yml como docker-compose.yml
- 9. Apuntar DNS al VPS
+ 7. Copiar docker-compose.prod.yml como docker-compose.yml
+ 8. Apuntar DNS: archie.bowin.com.ar → IP del VPS
  10. docker compose up -d --build
  11. Verificar checklist
 
